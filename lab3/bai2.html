@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        width: 204px;
+        margin: auto;
+      }
+      .container {
+        display: grid;
+        grid-template-columns: 50px 50px 50px 50px;
+      }
+      input[type="text"] {
+        width: 100%;
+        height: 30px;
+        background-color: rgb(226, 246, 246);
+      }
+      input[type="button"] {
+        width: 60px;
+        height: 60px;
+        background-color: rgb(104, 197, 197);
+      }
+    </style>
+  </head>
+  <body>
+    <input id="dapan" type="text" value="0" />
+    <div class="container">
+      <input type="button" value="7" onclick="tinhtoan(this.value)" />
+      <input type="button" value="8" onclick="tinhtoan(this.value)" />
+      <input type="button" value="9" onclick="tinhtoan(this.value)" />
+      <input type="button" value="+" onclick="tinhtoan(this.value)" />
+      <input type="button" value="4" onclick="tinhtoan(this.value)" />
+      <input type="button" value="5" onclick="tinhtoan(this.value)" />
+      <input type="button" value="6" onclick="tinhtoan(this.value)" />
+      <input type="button" value="-" onclick="tinhtoan(this.value)" />
+      <input type="button" value="1" onclick="tinhtoan(this.value)" />
+      <input type="button" value="2" onclick="tinhtoan(this.value)" />
+      <input type="button" value="3" onclick="tinhtoan(this.value)" />
+      <input type="button" value="*" onclick="tinhtoan(this.value)" />
+      <input type="button" value="0" onclick="tinhtoan(this.value)" />
+      <input
+        type="button"
+        style="background-color: red"
+        value="AC"
+        onclick="xoa()"
+      />
+      <input type="button" value="=" onclick="result()" />
+      <input type="button" value="/" onclick="tinhtoan(this.value)" />
+    </div>
+    <script>
+      // Cho kết quả bằng chuỗi rỗng
+      var number = "";
+      // Get element của input có id = dapan và gắn và dA
+      var dA = document.getElementById("dapan");
+      function tinhtoan(value) {
+        // Gắn number = value button
+        number += value;
+        // Gắn value của id dapan bằng biến number
+        dA.value = number;
+      }
+      function xoa() {
+        // Gắn biến number bằng 0
+        number = "0";
+        // Gắn value của id dapan bằng number
+        dA.value = number;
+      }
+      function result() {
+        // Nếu number bằng chuỗi rỗng hoặc bằng 0 thì thông báo "Vui lòng nhập phép tính"
+        if (number == "" || number == 0) {
+          alert("Vui lòng nhập phép tính");
+        }
+        // Gắn value của dapan bằng kết quả
+        dA.value = eval(dA.value);
+        // Gắn number bằng kết quả
+        number = dA.value;
+      }
+    </script>
+  </body>
+</html>
