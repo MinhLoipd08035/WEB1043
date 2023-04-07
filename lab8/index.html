@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        video {
+            display: block;
+            max-width: 100%;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        button {
+            font-size: 16px;
+            margin: 0 10px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #3498db;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        input[type="range"] {
+            width: 100px;
+            margin: 0 10px;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 10px;
+            height: 10px;
+            background-color: #3498db;
+            border-radius: 50%;
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 10px;
+            height: 10px;
+            background-color: #3498db;
+            border-radius: 50%;
+        }
+
+        input[type="range"]::-webkit-slider-runnable-track {
+            height: 2px;
+            background-color: #bdc3c7;
+            border-radius: 10px;
+        }
+
+        input[type="range"]::-moz-range-track {
+            height: 2px;
+            background-color: #bdc3c7;
+            border-radius: 10px;
+        }
+
+        input[type="range"]::-webkit-progress-value {
+            height: 2px;
+            background-color: #3498db;
+            border-radius: 10px;
+        }
+
+        input[type="range"]::-moz-progress-bar {
+            height: 2px;
+            background-color: #3498db;
+            border-radius: 10px;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            background-color: #2980b9;
+        }
+
+        input[type="range"]::-moz-range-thumb:hover {
+            background-color: #2980b9;
+        }
+
+        button#loop-btn {
+            background-color: #bdc3c7;
+            color: #333;
+        }
+
+        button#loop-btn:hover {
+            background-color: #999;
+        }
+
+        .video {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="video">
+        <video id="video-player" width="640" height="360">
+            <source src="y2mate.com - THẰNG ĐIÊN  JUSTATEE x PHƯƠNG LY  OFFICIAL MV_360p.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div class="controls">
+        <button id="play-pause-btn">Play</button>
+        <button id="stop-btn">Stop</button>
+        <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="1">
+        <button id="loop-btn">Loop</button>
+    </div>
+    <script>
+        // Lấy tham chiếu đến video player và các nút điều khiển
+        const videoPlayer = document.getElementById('video-player');
+        const playPauseBtn = document.getElementById('play-pause-btn');
+        const stopBtn = document.getElementById('stop-btn');
+        const volumeSlider = document.getElementById('volume-slider');
+        const loopBtn = document.getElementById('loop-btn');
+
+        // Hàm bật/tắt chức năng loop
+        function toggleLoop() {
+            if (videoPlayer.loop) {
+                videoPlayer.loop = false;
+                loopBtn.innerHTML = 'Loop';
+            } else {
+                videoPlayer.loop = true;
+                loopBtn.innerHTML = 'Unloop';
+            }
+        }
+
+        // Hàm chạy hoặc dừng video
+        function togglePlayPause() {
+            if (videoPlayer.paused || videoPlayer.ended) {
+                videoPlayer.play();
+                playPauseBtn.innerHTML = 'Pause';
+            } else {
+                videoPlayer.pause();
+                playPauseBtn.innerHTML = 'Play';
+            }
+        }
+
+        // Hàm dừng video
+        function stopVideo() {
+            videoPlayer.pause();
+            videoPlayer.currentTime = 0;
+            playPauseBtn.innerHTML = 'Play';
+        }
+
+        // Hàm thay đổi âm lượng
+        function setVolume() {
+            videoPlayer.volume = volumeSlider.value;
+        }
+
+        // Đăng ký sự kiện cho các nút điều khiển
+        playPauseBtn.addEventListener('click', togglePlayPause);
+        stopBtn.addEventListener('click', stopVideo);
+        volumeSlider.addEventListener('change', setVolume);
+        loopBtn.addEventListener('click', toggleLoop);
+
+    </script>
+</body>
+
+</html>
