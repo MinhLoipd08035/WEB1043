@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta httdiv-equiv="X-UA-Comdivatible" content="IE=edge" />
+    <meta name="viewdivort" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./file/style.css" />
+    <link rel="shortcut icon" href="./img/l.png" type="">
+
+</head>
+
+<body>
+
+    <div class="container">
+        <nav class="nav">
+            <ul>
+                <li><a href="#home">Trang Chủ</a></li>
+                <li><a href="#about">Giới Thiệu</a></li>
+                <li><a href="#service">Sản Phẩm</a></li>
+                <li><a href="#contact">Liên Hệ</a></li>
+            </ul>
+            <div class="DN">
+                <ul>
+                    <li id="register-link"><a href="#">Đăng ký</a></li>
+                </ul>
+            </div>
+        </nav>
+        <nav>
+            <ul>
+                <li><a href="#">Trang chủ</a></li>
+                <li><a href="#">Về chúng tôi</a></li>
+                <li><a href="#" id="register-link">Đăng ký</a></li>
+            </ul>
+        </nav>
+
+        <div id="register-form">
+
+            <h2>Đăng ký <i>(Bỏ qua vẫn có thể sử dụng trang web)</i> </h2>
+            <form>
+                <label for="fullname">Họ tên:</label>
+                <input type="text" id="fullname" name="fullname" required>
+                <label for="phone1">Số điện thoại:</label>
+                <input type="tel" id="phone1" name="phone" required>
+                <div id="phone-error"></div>
+                <label for="email">Email:</label>
+                <input type="email" id="email1" name="email" required>
+                <label for="username">Tên tài khoản:</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">Mật khẩu:</label>
+                <input type="password" id="password" name="password" required>
+                <div id="password-error"></div>
+                <label for="confirm-password">Nhập lại mật khẩu:</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+                <div class="buttonDK">
+                    <button type="submit">Đăng ký</button>
+                    <button type="reset">Nhập Lại</button>
+                </div>
+            </form>
+            <button id="close-btn">Bỏ qua</button>
+            <div id="loi"></div>
+        </div>
+        <script>
+            const passwordInput = document.getElementById("password");
+            const passwordError = document.getElementById("password-error");
+
+            passwordInput.addEventListener("input", () => {
+                const passwordValue = passwordInput.value;
+
+                if (passwordValue.length < 8) {
+                    passwordError.textContent = "Mật khẩu phải có ít nhất 8 kí tự";
+                    passwordInput.setCustomValidity("Mật khẩu phải có ít nhất 8 kí tự");
+                } else {
+                    passwordError.textContent = "";
+                    passwordInput.setCustomValidity("");
+                }
+            });
+        </script>
+
+        <script>
+            const phoneInput2 = document.getElementById("phone1");
+            const phoneError = document.getElementById("phone-error");
+
+            phoneInput2.addEventListener("input", () => {
+                const phonePattern = /^[0-9]{10}$/; // Biểu thức chính quy kiểm tra số điện thoại có 10 chữ số
+                const phoneValue = phoneInput2.value;
+
+                if (!phonePattern.test(phoneValue)) {
+                    phoneError.textContent = "Số điện thoại không hợp lệ";
+                    phoneInput2.setCustomValidity("Số điện thoại không hợp lệ");
+                } else {
+                    phoneError.textContent = "";
+                    phoneInput2.setCustomValidity("");
+                }
+            });
+        </script>
+        <script>
+            const registerLink = document.getElementById("register-link");
+            const registerForm = document.getElementById("register-form");
+            const cancelButton = document.getElementById("close-btn");
+
+            registerLink.addEventListener("click", () => {
+                registerForm.style.display = "block";
+            });
+
+            cancelButton.addEventListener("click", () => {
+                registerForm.style.display = "none";
+            });
+
+        </script>
+        <script>
+            const closeBtn = document.getElementById("close-btn");
+
+            // Ẩn form đăng ký khi nhấn vào nút Bỏ qua
+            closeBtn.addEventListener("click", () => {
+                registerForm.style.display = "none";
+            });
+
+            // Gửi form đăng ký và ẩn form khi đăng ký thành công
+            registerForm.addEventListener("submit", (event) => {
+                event.preventDefault();
+
+                // Lấy thông tin từ form đăng ký
+                const fullname = document.getElementById("fullname").value;
+                const phone = document.getElementById("phone1").value;
+                const email = document.getElementById("email1").value;
+                const username = document.getElementById("username").value;
+                const password = document.getElementById("password").value;
+                const confirmPassword = document.getElementById("confirm-password").value;
+                const loi = document.getElementById("loi").value;
+
+
+                // Kiểm tra mật khẩu và nhập lại mật khẩu có giống nhau không
+                if (password !== confirmPassword) {
+                    alert("Mật khẩu không trùng khớp");
+                    return;
+                }
+
+                // Gửi thông tin đăng ký đến server và xử lý phản hồi
+                // Ở đây mình sẽ giả sử rằng đăng ký thành công nếu tên tài khoản đã được sử dụng
+                if (checkIfUsernameExists(username)) {
+                    alert("Tên tài khoản đã được sử dụng");
+                    return;
+                }
+
+                // Ẩn form đăng ký
+                registerForm.style.display = "none";
+                alert("Đăng ký thành công!");
+            });
+
+            // Hàm kiểm tra tên tài khoản đã được sử dụng hay chưa
+            function checkIfUsernameExists(username) {
+                // Ở đây mình sẽ giả sử rằng tên tài khoản đã được sử dụng nếu có trong danh sách sau
+                const usernames = ["user1", "user2", "user3"];
+                return usernames.includes(username);
+            }
+        </script>
+        <section id="home">
+            <h1></h1>
+            <div class="noidung1">
+                <img id="anhdong" onclick="chuyenanh()" src="./img/trangchu.png" alt="" width="1519px" />
+            </div>
+            <script>
+                var index = 1;
+                chuyenanh = function () {
+                    var imgs = [
+                        "./img/trangchu.png",
+                        "./img/anhtrangchu1.jpg",
+                        "./img/anhtrangchu2.jpg",
+                        "./img/anhtrangchu3.jpg",
+                        "./img/anhtrangchu4.jpg",
+                    ];
+                    document.getElementById("anhdong").src = imgs[index];
+                    index++;
+                    if (index == 5) {
+                        index = 0;
+                    }
+                };
+                setInterval(chuyenanh, 4000);
+            </script>
+        </section>
+        <section id="about">
+            <h1></h1>
+            <div class="noidung2">
+                <div class="box1">
+                    <img src="./img/gioithieu.jpg" id="myImage" onmouseover="changeImage()" onmouseout="changeBack()"
+                        alt="" />
+                    <script>
+                        function changeImage() {
+                            document.getElementById("myImage").src = "https://thuongmotor.com/wp-content/uploads/2023/02/kawasaki-29.jpg";
+                        }
+
+                        function changeBack() {
+                            document.getElementById("myImage").src = "./img/gioithieu.jpg";
+                        }
+                    </script>
+                </div>
+
+                <div class="gioithieu">
+                    <h1>
+                        <button class="buttonGthieu">
+                            <h1>Giới Thiệu</h1>
+                            <svg stroke-width="4" stroke="currentColor" viewBox="0 0 24 24" fill="none" class="h-6 w-6"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linejoin="round" stroke-linecap="round"></path>
+                            </svg>
+                        </button>
+                    </h1>
+                    <p>
+                        <b>Minh Lợi Motor </b>chuyên mua bán các dòng xe mô tô thể thao
+                        phong phú của các hãng nổi tiếng
+                        <b> Honda, Yamaha, Suzuki, BMW, TRIUMPH, DUCATI, Kawasaki…</b>có
+                        nhiều sự lựa chọn cho người chơi xe thể thao. Với rất nhiều dịch
+                        vụ hỗ trợ khách hàng, Thưởng Motor tự tin khẳng định mình là
+                        <b> cửa hàng xe PKL</b>, xe mô tô nhập khẩu <b> UY TÍN </b> và
+                        <b> CHẤT LƯỢNG NHẤT VIỆT NAM.</b>
+                    </p>
+
+                    <button class="buttonXCT">
+                        <span class="span"><a href="">Xem Chi Tiết</a></span>
+                        <span class="second">
+                            <svg width="50px" height="20px" viewBox="0 0 66 43" version="1.1"
+                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <g id="arrow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <path class="one"
+                                        d="M40.1543933,3.89485454 L43.9763149,0.139296592 C44.1708311,-0.0518420739 44.4826329,-0.0518571125 44.6771675,0.139262789 L65.6916134,20.7848311 C66.0855801,21.1718824 66.0911863,21.8050225 65.704135,22.1989893 C65.7000188,22.2031791 65.6958657,22.2073326 65.6916762,22.2114492 L44.677098,42.8607841 C44.4825957,43.0519059 44.1708242,43.0519358 43.9762853,42.8608513 L40.1545186,39.1069479 C39.9575152,38.9134427 39.9546793,38.5968729 40.1481845,38.3998695 C40.1502893,38.3977268 40.1524132,38.395603 40.1545562,38.3934985 L56.9937789,21.8567812 C57.1908028,21.6632968 57.193672,21.3467273 57.0001876,21.1497035 C56.9980647,21.1475418 56.9959223,21.1453995 56.9937605,21.1432767 L40.1545208,4.60825197 C39.9574869,4.41477773 39.9546013,4.09820839 40.1480756,3.90117456 C40.1501626,3.89904911 40.1522686,3.89694235 40.1543933,3.89485454 Z"
+                                        fill="#FFFFFF"></path>
+                                    <path class="two"
+                                        d="M20.1543933,3.89485454 L23.9763149,0.139296592 C24.1708311,-0.0518420739 24.4826329,-0.0518571125 24.6771675,0.139262789 L45.6916134,20.7848311 C46.0855801,21.1718824 46.0911863,21.8050225 45.704135,22.1989893 C45.7000188,22.2031791 45.6958657,22.2073326 45.6916762,22.2114492 L24.677098,42.8607841 C24.4825957,43.0519059 24.1708242,43.0519358 23.9762853,42.8608513 L20.1545186,39.1069479 C19.9575152,38.9134427 19.9546793,38.5968729 20.1481845,38.3998695 C20.1502893,38.3977268 20.1524132,38.395603 20.1545562,38.3934985 L36.9937789,21.8567812 C37.1908028,21.6632968 37.193672,21.3467273 37.0001876,21.1497035 C36.9980647,21.1475418 36.9959223,21.1453995 36.9937605,21.1432767 L20.1545208,4.60825197 C19.9574869,4.41477773 19.9546013,4.09820839 20.1480756,3.90117456 C20.1501626,3.89904911 20.1522686,3.89694235 20.1543933,3.89485454 Z"
+                                        fill="#FFFFFF"></path>
+                                    <path class="three"
+                                        d="M0.154393339,3.89485454 L3.97631488,0.139296592 C4.17083111,-0.0518420739 4.48263286,-0.0518571125 4.67716753,0.139262789 L25.6916134,20.7848311 C26.0855801,21.1718824 26.0911863,21.8050225 25.704135,22.1989893 C25.7000188,22.2031791 25.6958657,22.2073326 25.6916762,22.2114492 L4.67709797,42.8607841 C4.48259567,43.0519059 4.17082418,43.0519358 3.97628526,42.8608513 L0.154518591,39.1069479 C-0.0424848215,38.9134427 -0.0453206733,38.5968729 0.148184538,38.3998695 C0.150289256,38.3977268 0.152413239,38.395603 0.154556228,38.3934985 L16.9937789,21.8567812 C17.1908028,21.6632968 17.193672,21.3467273 17.0001876,21.1497035 C16.9980647,21.1475418 16.9959223,21.1453995 16.9937605,21.1432767 L0.15452076,4.60825197 C-0.0425130651,4.41477773 -0.0453986756,4.09820839 0.148075568,3.90117456 C0.150162624,3.89904911 0.152268631,3.89694235 0.154393339,3.89485454 Z"
+                                        fill="#FFFFFF"></path>
+                                </g>
+                            </svg>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </section>
+        <section id="service">
+            <div class="noidung3">
+                <div id="tieude">Sản Phẩm Nổi bật</div>
+                <div class="column">
+                    <div class="sanpham">
+                        <div class="ten">KAWASAKI Z650RS</div>
+                        <img src="./img/anhxe1.jpg" />
+                        <div class="gia"><del></del>200.000.000 VND</div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="sanpham">
+                        <div class="ten">KAWASAKI KLX230</div>
+                        <img src="./img/anhxe2.jpg" />
+                        <div class="gia"><del></del>148.000.000 VND</div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="sanpham">
+                        <div class="ten">KAWASAKI VERSYS 650</div>
+                        <img src="./img/anhxe3.jpg" />
+                        <div class="gia"><del></del><a href="#contact">Liên Hệ</a></div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="sanpham">
+                        <div class="ten">YAMAHA R3 ABS</div>
+                        <img src="./img/anhxe4.jpg" />
+                        <div class="gia"><del></del>200.000.000 VND</div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="sanpham">
+                        <div class="ten">HONDA SHADOW 15O</div>
+                        <img src="./img/anhxe5.jpg" />
+                        <div class="gia"><del></del>119.000.000 VND</div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="sanpham">
+                        <div class="ten">HONDA CBR150R ABS</div>
+                        <img src="./img/anhxe6.jpg" />
+                        <div class="gia"><del></del>149.000.000 VND</div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="sanpham">
+                        <div class="ten">NINJA 400 ABS SE</div>
+                        <img src="./img/anhxe7.jpg" />
+                        <div class="gia"><del></del>156.000.000 VND</div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="sanpham">
+                        <div class="ten">KAWASAKI Z1000 ABS</div>
+                        <img src="./img/anhxe8.jpg" />
+                        <div class="gia"><del></del>412.000.000 VND</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="contact">
+
+            <div class="noidung4">
+                <div class="trai">
+                    <h1>Đăng Kí Thông Tin</h1>
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label for="name">Họ và tên:</label>
+                            <input id="name" class="form-control" type="text" />
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="email">Địa chỉ mail:</label>
+                            <input id="email" class="form-control" type="text" />
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="phone">Số Điện Thoại:</label>
+                            <input id="phone" class="form-control" type="text" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Nội Dung:</label>
+                            <textarea id="message" class="form-control" name="message" cols="55" rows="5"></textarea>
+                        </div>
+                        <input type="submit" value="Gửi">
+                        <div id="error-message"></div>
+                    </form>
+                </div>
+                <script>
+                    // Lấy các phần tử DOM cần sử dụng
+                    const form = document.getElementById('contact-form');
+                    const nameInput = document.getElementById('name');
+                    const phoneInput = document.getElementById('phone');
+                    const emailInput = document.getElementById('email');
+                    const errorMessage = document.getElementById('error-message');
+                    const messageInput = document.getElementById('message');
+
+                    // Kiểm tra tính hợp lệ của thông tin nhập vào
+                    function validateForm() {
+                        let isValid = true;
+
+                        // Kiểm tra họ tên không được để trống
+                        if (nameInput.value.trim() === '') {
+                            errorMessage.innerHTML = 'Họ tên không được để trống';
+                            isValid = false;
+                        }
+
+                        // Kiểm tra số điện thoại
+                        if (phoneInput.value.trim() === '') {
+                            errorMessage.innerHTML = 'Số điện thoại không được để trống';
+                            isValid = false;
+                        } else if (!/^0\d{9,10}$/.test(phoneInput.value.trim())) {
+                            errorMessage.innerHTML = 'Số điện thoại không hợp lệ';
+                            isValid = false;
+                        }
+
+                        // Kiểm tra email
+                        if (emailInput.value.trim() === '') {
+                            errorMessage.innerHTML = 'Email không được để trống';
+                            isValid = false;
+                        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value.trim())) {
+                            errorMessage.innerHTML = 'Email không hợp lệ';
+                            isValid = false;
+                        }
+                        //
+                        // Nếu thông tin nhập vào không hợp lệ, hiển thị thông báo lỗi
+                        if (!isValid) {
+                            errorMessage.style.display = 'block';
+                        } else {
+                            errorMessage.style.display = 'none';
+                        }
+
+                        return isValid;
+                    }
+
+                    // Xử lý sự kiện khi người dùng gửi thông tin
+                    form.addEventListener('submit', (event) => {
+                        // Ngăn chặn hành động mặc định của form (tải lại trang)
+                        event.preventDefault();
+
+                        // Kiểm tra tính hợp lệ của thông tin nhập vào
+                        if (validateForm()) {
+                            // Gửi thông tin liên hệ đến server hoặc thực hiện hành động khác tùy theo yêu cầu
+                            console.log('Thông tin liên hệ:', nameInput.value, phoneInput.value, emailInput.value, messageInput.value);
+                            alert('Thông tin liên hệ đã được gửi thành công!');
+                        }
+                    });
+                </script>
+                <div class="phai">
+                    <h1>Thông Tin Liên Hệ</h1>
+                    <li class="dt">Hotline: <a target="ad" href="tel:0378566916">0378566916</a></li>
+                    <li class="fb">Facebook: <a target="ac"
+                            href="https://www.facebook.com/profile.php?id=100024630651133">Nguyễn
+                            Tấn Minh
+                            Lợi</a></li>
+                    <li class="we">Website : <a target="ab" href="http://minhloifpt.click/">minhloifpt.click</a></li>
+                    <li class="email">Email: <a target="av"
+                            href="https://mail.google.com/mail/u/0/#inbox">lointmpd8035@fpt.edu.vn</a></li>
+                    <li class="diachi">Địa Chỉ:<a target="az" href="#contact">229 Phạm Văn Đồng, Hưng Thành, Tuyên
+                            Quang, Việt
+                            Nam</a></li>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1903649.2123644685!2d103.62785339355466!3d21.26889971996768!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3134ae0678af1301%3A0x674aaa10e5ac75a6!2zQ-G7rWEgSMOgbmcgTWluaCBM4bujaQ!5e0!3m2!1svi!2s!4v1681011179398!5m2!1svi!2s"
+                        width="750" height="340" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </section>
+        <section id="cuoi">
+            <div class="noidung5">
+
+            </div>
+        </section>
+    </div>
+
+
+</body>
+
+</html>
