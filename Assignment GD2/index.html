@@ -12,14 +12,21 @@
 </head>
 
 <body>
-
     <div class="container">
         <nav class="nav">
+            <li>
+                <div class="countdown">
+                    <div class="countdown-label">Cửa hàng</div>
+                    <div class="countdown-status"></div>
+                    <div class="countdown-timer"></div>
+                </div>
+            </li>
             <ul>
                 <li><a href="#home">Trang Chủ</a></li>
                 <li><a href="#about">Giới Thiệu</a></li>
                 <li><a href="#service">Sản Phẩm</a></li>
                 <li><a href="#contact">Liên Hệ</a></li>
+                <li><a href="#cuoi">Thương Hiệu</a></li>
             </ul>
             <div class="DN">
                 <ul>
@@ -156,10 +163,62 @@
                 return usernames.includes(username);
             }
         </script>
+        <script>
+            // Tính thời gian còn lại cho đến 7 giờ tối
+            function getTimeRemaining() {
+                const now = new Date();
+                const closingTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 19, 0, 0);
+                const timeLeft = closingTime - now;
+
+                const hoursLeft = Math.floor(timeLeft / (1000 * 60 * 60));
+                const minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                return {
+                    hours: hoursLeft,
+                    minutes: minutesLeft,
+                    seconds: secondsLeft,
+                };
+            }
+            // Hiển thị đồng hồ đếm ngược
+            function initializeClock() {
+                const countdownTimer = document.querySelector('.countdown-timer');
+                const countdownStatus = document.querySelector('.countdown-status');
+
+                function updateClock() {
+                    const time = getTimeRemaining();
+
+                    if (time.hours >= 0) {
+                        countdownStatus.textContent = 'đóng cửa sau';
+                        countdownTimer.textContent = `${time.hours.toString().padStart(2, '0')}:${time.minutes.toString().padStart(2, '0')}:${time.seconds.toString().padStart(2, '0')}`;
+                    } else {
+                        countdownStatus.textContent = 'mở cửa sau';
+                        countdownTimer.textContent = '';
+                    }
+                }
+
+                updateClock();
+                setInterval(updateClock, 1000);
+            }
+
+            initializeClock();
+
+        </script>
         <section id="home">
             <h1></h1>
             <div class="noidung1">
-                <img id="anhdong" onclick="chuyenanh()" src="./img/trangchu.png" alt="" width="1519px" />
+
+                <div><img id="anhdong" onclick="chuyenanh()" src="/img/trangchu.png" alt="" width="1519px" />
+                    <div class="lui" onclick="chuyenanhlui()">
+                        <img src="https://1.bp.blogspot.com/-M5GQXEm5WSY/W3NBIsbwQhI/AAAAAAAAB3U/8efD_FZT9SYOqV06uukWggjvWirFVgCWwCLcBGAs/s1600/left-arrow.png"
+                            alt="">
+                    </div>
+                    <div class="toi" onclick="chuyenanh()">
+                        <img src="https://1.bp.blogspot.com/-gQ3wToOpjGQ/W3NBIeUTlEI/AAAAAAAAB3Q/4aW9xvBKUisnbkFpLsvzt-qigEdsxWvKACLcBGAs/s1600/right-arrow.png"
+                            alt="">
+                    </div>
+                </div>
+
             </div>
             <script>
                 var index = 1;
@@ -178,6 +237,20 @@
                     }
                 };
                 setInterval(chuyenanh, 4000);
+                chuyenanhlui = function () {
+                    var imgs = [
+                        "./img/trangchu.png",
+                        "./img/anhtrangchu1.jpg",
+                        "./img/anhtrangchu2.jpg",
+                        "./img/anhtrangchu3.jpg",
+                        "./img/anhtrangchu4.jpg",
+                    ];
+                    document.getElementById("anhdong").src = imgs[index];
+                    index--;
+                    if (index == -1) {
+                        index = 4;
+                    }
+                };
             </script>
         </section>
         <section id="about">
@@ -399,7 +472,8 @@
                     <li class="we">Website : <a target="ab" href="http://minhloifpt.click/">minhloifpt.click</a></li>
                     <li class="email">Email: <a target="av"
                             href="https://mail.google.com/mail/u/0/#inbox">lointmpd8035@fpt.edu.vn</a></li>
-                    <li class="diachi">Địa Chỉ:<a target="az" href="#contact">229 Phạm Văn Đồng, Hưng Thành, Tuyên
+                    <li class="diachi">Địa Chỉ:<a target="az" href="https://goo.gl/maps/xrnqSgjVLUqYzYV69">229 Phạm Văn
+                            Đồng, Hưng Thành, Tuyên
                             Quang, Việt
                             Nam</a></li>
                     <iframe
@@ -411,8 +485,52 @@
         </section>
         <section id="cuoi">
             <div class="noidung5">
-
-            </div>
+                <div class="chuyendong">
+                    <div class="logo-row">
+                        <div class="boclogo"> <img
+                                src="https://thuongmotor.com/wp-content/uploads/2020/10/2-279x139-1.png"
+                                alt="Logo xe 1"></div>
+                        <div class="boclogo"> <img
+                                src="https://thuongmotor.com/wp-content/uploads/2020/10/3-279x139-1.png"
+                                alt="Logo xe 2"></div>
+                        <div class="boclogo"> <img
+                                src="https://thuongmotor.com/wp-content/uploads/2020/10/4-279x139-1.png"
+                                alt="Logo xe 3"></div>
+                        <div class="boclogo"> <img
+                                src="https://thuongmotor.com/wp-content/uploads/2020/10/5-279x139-1.png"
+                                alt="Logo xe 4"></div>
+                        <div class="boclogo"> <img
+                                src="https://thuongmotor.com/wp-content/uploads/2020/10/6-279x139-1.png"
+                                alt="Logo xe 5"></div>
+                        <div class="boclogo"> <img
+                                src="https://thuongmotor.com/wp-content/uploads/2020/10/7-279x139-1.png"
+                                alt="Logo xe 6"></div>
+                        <div class="boclogo"> <img
+                                src="https://thuongmotor.com/wp-content/uploads/2020/10/1-279x139-1.png"
+                                alt="Logo xe 7"></div>
+                    </div>
+                </div>
+                <div class="footter">
+                    <h2>Minh Lợi Motor</h2>
+                    <h3>CỬA HÀNG XE UY TÍN-CHẤT LƯỢNG</h3>
+                    <div class="trongfooter">
+                        <iframe width="500" height="310" src="https://www.youtube.com/embed/d4xqDl43dAE"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen></iframe>
+                        <iframe width="500" height="310" src="https://www.youtube.com/embed/B7SAhs-juK0"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen></iframe>
+                        <iframe width="500" height="310" src="https://www.youtube.com/embed/vVRjMgaDVRU"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen></iframe>
+                        <div class="het">
+                            <p>@minhloifpt - SĐT:0378566916 - Email:lointmpd08035@fpt.edu.vn</p>
+                        </div>
+                    </div>
+                </div>
         </section>
     </div>
 
